@@ -44,20 +44,18 @@ def get_occupation(data, hometown)
   occupation
 end
 
+# Realized I had been averaging the ages for ALL seasons
+# Also had to get the ages as floats and then round out the average...
+
 def get_average_age_for_season(data, season)
   age_array = []
-  age_sum = 0
-  data.each do |season, contestant_array|
-    contestant_array.each do |contestant|
-      age_array << contestant["age"].to_i
-    end
+  age_sum = 0.0
+  data[season].each do |contestant|
+    age_array << contestant["age"].to_f
   end
   age_array.each do |age|
     age_sum += age
   end
   age_avg = age_sum / age_array.length
-  if season == "season 11" # Totally cheating, but I could not figure out why I was getting the wrong average for season 11!
-    age_avg += 1
-  end
-  age_avg
+  age_avg.round
 end
